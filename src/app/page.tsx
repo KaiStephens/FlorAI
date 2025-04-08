@@ -1,100 +1,236 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import PlanetScene from '../components/PlanetScene';
 
 // Dynamically import the Scene component with no SSR to avoid Three.js server-side issues
 const Scene = dynamic(() => import('./components/Scene'), { ssr: false });
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
-      {/* Hero Section */}
-      <section className="w-full bg-gradient-to-br from-green-500 to-green-700 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Meet FlorAI</h1>
-              <h2 className="text-2xl md:text-3xl font-semibold mb-6">The AI-Powered Plant Monitor</h2>
-              <p className="text-lg mb-8">
-                Monitor soil moisture, light levels, and plant health with cutting-edge AI technology.
-                Get personalized recommendations for optimal plant care.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link 
-                  href="/features" 
-                  className="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition-colors text-center"
-                >
-                  Explore Features
-                </Link>
-                <Link 
-                  href="/dashboard" 
-                  className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors text-center"
-                >
-                  View Dashboard
-                </Link>
-              </div>
-            </div>
-            <div className="md:w-1/2">
-              {/* Replace the placeholder with our 3D Scene */}
-              <Scene />
-            </div>
-          </div>
-        </div>
-      </section>
+    <>
+      <main className="relative">
+        {/* Fixed background with planet */}
+        <PlanetScene />
 
-      {/* Features Preview */}
-      <section className="w-full py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Key Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Real-time Monitoring</h3>
-              <p className="text-gray-600">Get live updates on soil moisture, light exposure, and temperature.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">AI Recommendations</h3>
-              <p className="text-gray-600">Receive personalized care tips based on your plant's specific needs.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-              <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Care Scheduling</h3>
-              <p className="text-gray-600">Set up watering reminders and track your plant's growth over time.</p>
+        {/* Hero Section */}
+        <section className="relative z-10 flex flex-col items-start justify-center min-h-screen pl-16 md:pl-28">
+          <div className="bg-black/30 backdrop-blur-sm p-8 rounded-lg max-w-2xl border-l-4 border-green-400">
+            <h1 className="text-7xl md:text-8xl font-bold text-white mb-6 animate-fade-in-up drop-shadow-[0_0_15px_rgba(0,255,0,0.7)]">
+              Green Planet
+            </h1>
+            <p className="text-3xl md:text-4xl text-green-300 animate-fade-in-up-delayed drop-shadow-[0_0_10px_rgba(168,230,207,0.7)]">
+              Growing a Sustainable Future
+            </p>
+            <div className="mt-10 opacity-0 animate-fade-in-up-delayed2">
+              <Link href="#about" className="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-green-400/30 mr-4">
+                Explore
+              </Link>
+              <Link href="#mission" className="border-2 border-green-400 text-green-400 hover:bg-green-400/20 text-lg font-semibold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105">
+                Learn More
+              </Link>
             </div>
           </div>
-          <div className="text-center mt-12">
-            <Link href="/features" className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
-              View All Features
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="w-full py-16 bg-green-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to transform your plant care?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Join thousands of plant enthusiasts who have revolutionized their gardening experience with FlorAI.
-          </p>
-          <Link href="/about" className="inline-block bg-white text-green-700 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-100 transition-colors">
-            Learn More
-          </Link>
-        </div>
-      </section>
-    </div>
+        {/* About Section */}
+        <section id="about" className="relative z-10 min-h-screen flex items-center py-32 px-8 md:px-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="fade-in-section">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 border-l-4 border-green-400 pl-6">
+                About Green Planet
+              </h2>
+              <div className="bg-black/30 backdrop-blur-sm p-8 rounded-lg border-l-4 border-green-400">
+                <p className="text-xl text-green-100 leading-relaxed mb-6">
+                  Green Planet is an innovative AI-powered solution designed to help individuals and organizations monitor and maintain plant health. Our technology combines advanced sensors, machine learning algorithms, and user-friendly interfaces to revolutionize how we interact with our natural environment.
+                </p>
+                <p className="text-xl text-green-100 leading-relaxed mb-6">
+                  In a world facing unprecedented environmental challenges, Green Planet empowers users to make a positive impact by optimizing plant care, reducing resource waste, and contributing to a greener future.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                  <div className="bg-green-800/50 p-6 rounded-lg">
+                    <h3 className="text-2xl font-bold text-white mb-3">Smart Monitoring</h3>
+                    <p className="text-green-200">Utilize AI-powered sensors to track soil moisture, light conditions, and plant health in real-time.</p>
+                  </div>
+                  <div className="bg-green-800/50 p-6 rounded-lg">
+                    <h3 className="text-2xl font-bold text-white mb-3">Sustainable Practices</h3>
+                    <p className="text-green-200">Reduce water waste and optimize resource usage with data-driven recommendations.</p>
+                  </div>
+                  <div className="bg-green-800/50 p-6 rounded-lg">
+                    <h3 className="text-2xl font-bold text-white mb-3">Global Impact</h3>
+                    <p className="text-green-200">Join a community of environmentally conscious individuals making a difference.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mission Section */}
+        <section id="mission" className="relative z-10 min-h-screen flex items-center py-32 px-8 md:px-16 bg-gradient-to-b from-transparent to-green-950/20">
+          <div className="max-w-6xl mx-auto">
+            <div className="fade-in-section">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 border-l-4 border-green-400 pl-6">
+                Our Mission
+              </h2>
+              <div className="bg-black/30 backdrop-blur-sm p-8 rounded-lg border-l-4 border-green-400">
+                <p className="text-xl text-green-100 leading-relaxed mb-10">
+                  At Green Planet, our mission is to harness the power of technology to create a more sustainable and environmentally conscious world. We believe that by making plant care more accessible and data-driven, we can inspire individuals to foster stronger connections with nature.
+                </p>
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  <div className="md:w-1/2">
+                    <h3 className="text-3xl font-bold text-white mb-4">Goals for Sustainability</h3>
+                    <ul className="list-disc list-inside space-y-3 text-green-200">
+                      <li>Reduce global water consumption in agriculture by 20%</li>
+                      <li>Improve urban green spaces through smarter plant management</li>
+                      <li>Educate 1 million people about sustainable gardening</li>
+                      <li>Decrease plant mortality rates by 40% through predictive care</li>
+                      <li>Build a global database of plant health to advance botanical research</li>
+                    </ul>
+                  </div>
+                  <div className="md:w-1/2 bg-green-800/30 p-8 rounded-lg">
+                    <h3 className="text-2xl font-bold text-white mb-4">Our Commitment</h3>
+                    <p className="text-green-100 mb-6">
+                      We're committed to environmental stewardship in everything we do. From our eco-friendly manufacturing processes to our carbon-neutral operations, sustainability isn't just what we promote—it's how we operate.
+                    </p>
+                    <p className="text-green-100">
+                      With each Green Planet device deployed, we plant a tree in regions affected by deforestation, creating a tangible positive impact beyond our digital solutions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Technology Section */}
+        <section id="technology" className="relative z-10 min-h-screen flex items-center py-32 px-8 md:px-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="fade-in-section">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 border-l-4 border-green-400 pl-6">
+                Our Technology
+              </h2>
+              <div className="bg-black/30 backdrop-blur-sm p-8 rounded-lg border-l-4 border-green-400">
+                <p className="text-xl text-green-100 leading-relaxed mb-10">
+                  Green Planet leverages cutting-edge technology to revolutionize how we interact with plants. Our proprietary hardware and software solutions work in harmony to create an intelligent ecosystem of care.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div>
+                    <h3 className="text-3xl font-bold text-white mb-6">Hardware Components</h3>
+                    <div className="space-y-6">
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">Precision Sensors</h4>
+                        <p className="text-green-100">
+                          Our multi-spectral sensors capture over 20 different data points, from soil moisture and pH levels to light intensity and chlorophyll concentration.
+                        </p>
+                      </div>
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">Smart Hub</h4>
+                        <p className="text-green-100">
+                          The central processing unit aggregates data from all connected sensors and provides initial analysis before securely transmitting information to the cloud.
+                        </p>
+                      </div>
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">Automated Systems</h4>
+                        <p className="text-green-100">
+                          Optional integration with watering and lighting systems allows for automated care based on AI recommendations.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white mb-6">Software Intelligence</h3>
+                    <div className="space-y-6">
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">AI Analysis Engine</h4>
+                        <p className="text-green-100">
+                          Our proprietary algorithms analyze thousands of data points per plant to provide personalized care recommendations optimized for plant health and resource efficiency.
+                        </p>
+                      </div>
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">Plant Database</h4>
+                        <p className="text-green-100">
+                          Access to a comprehensive library of over 10,000 plant species with detailed care information, growth patterns, and optimal conditions.
+                        </p>
+                      </div>
+                      <div className="bg-green-900/40 p-6 rounded-lg">
+                        <h4 className="text-2xl font-semibold text-green-300 mb-2">Predictive Analytics</h4>
+                        <p className="text-green-100">
+                          Anticipate plant needs before issues arise with our forward-looking analysis system that learns and improves with each growing cycle.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section id="cta" className="relative z-10 min-h-screen flex items-center py-32 px-8 md:px-16 bg-gradient-to-b from-transparent to-green-900/30">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="fade-in-section">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                Join the Movement
+              </h2>
+              <div className="bg-black/30 backdrop-blur-sm p-8 rounded-lg">
+                <p className="text-xl text-green-100 leading-relaxed mb-10">
+                  Be part of the green revolution. Whether you're a hobbyist gardener, a commercial grower, or an environmentally conscious individual, Green Planet offers solutions tailored to your needs.
+                </p>
+                <div className="flex flex-col md:flex-row gap-6 justify-center mt-12">
+                  <Link href="/features" className="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-4 px-8 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-green-400/30">
+                    Explore Features
+                  </Link>
+                  <Link href="/how-it-works" className="bg-transparent border-2 border-green-400 text-green-400 hover:bg-green-400/20 text-lg font-semibold py-4 px-8 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105">
+                    How It Works
+                  </Link>
+                  <Link href="/install" className="bg-green-800 hover:bg-green-700 text-white text-lg font-semibold py-4 px-8 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105">
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Add CSS for fade-in sections */}
+      <style jsx>{`
+        .fade-in-section {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .fade-in-section.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+
+      {/* Add JavaScript to handle scroll-based fade-ins */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.fade-in-section');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+                }
+              });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+              fadeInObserver.observe(section);
+            });
+          });
+        `
+      }} />
+    </>
   );
 }
