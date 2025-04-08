@@ -33,9 +33,6 @@ function Navigation() {
               <Link href="/install" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-600">
                 Install
               </Link>
-              <Link href="/about" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-600">
-                Who We Are
-              </Link>
             </div>
           </div>
           <div className="md:hidden">
@@ -76,7 +73,6 @@ export default function RootLayout({ children }) {
               <div className="flex space-x-6">
                 <Link href="/mission" className="hover:text-green-300">Our Mission</Link>
                 <Link href="/features" className="hover:text-green-300">Features</Link>
-                <Link href="/about" className="hover:text-green-300">About Us</Link>
               </div>
             </div>
             <div className="mt-8 border-t border-green-600 pt-4 text-center text-sm">

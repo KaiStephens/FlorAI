@@ -34,12 +34,14 @@ function FeatureBox({ position, title, color, hoverColor, scale = 1, onClick }) 
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
       >
-        <meshStandardMaterial 
+        <meshPhysicalMaterial 
           color={hovered ? hoverColor : color} 
-          metalness={0.5}
+          metalness={0.6}
           roughness={0.2}
+          clearcoat={0.5}
+          clearcoatRoughness={0.3}
           emissive={hovered ? hoverColor : '#000000'}
-          emissiveIntensity={hovered ? 0.5 : 0}
+          emissiveIntensity={hovered ? 0.8 : 0}
         />
       </RoundedBox>
       <Text
@@ -48,7 +50,7 @@ function FeatureBox({ position, title, color, hoverColor, scale = 1, onClick }) 
         fontSize={0.15}
         maxWidth={1.5}
         lineHeight={1.2}
-        font="/fonts/Inter-Medium.woff"
+        font="sans-serif"
         anchorX="center"
         anchorY="middle"
         textAlign="center"
@@ -147,12 +149,12 @@ function BackgroundParticles() {
 
 export default function FeaturesScene() {
   return (
-    <div className="w-full h-[600px] bg-gradient-to-b from-green-800 to-green-950 rounded-lg overflow-hidden shadow-xl">
+    <div className="w-full h-[600px] bg-gradient-to-b from-green-800/30 to-green-950/30 rounded-xl overflow-hidden shadow-2xl border border-green-700/30">
       <Canvas className="w-full h-full">
         <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={60} />
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} />
-        <spotLight position={[0, 0, 10]} intensity={0.5} angle={0.3} penumbra={1} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <spotLight position={[0, 0, 10]} intensity={0.7} angle={0.3} penumbra={1} color="#4ade80" />
         
         <BackgroundParticles />
         <LightBeams />
@@ -162,7 +164,7 @@ export default function FeaturesScene() {
             position={[0, 0, 0]}
             color="#ffffff"
             fontSize={0.3}
-            font="/fonts/Inter-Bold.woff"
+            font="sans-serif"
             anchorX="center"
             anchorY="middle"
           >
@@ -173,32 +175,37 @@ export default function FeaturesScene() {
         <FeatureBox 
           position={[-2, 1.5, 0]} 
           title="Real-time Monitoring" 
-          color="#16a34a" 
+          color="#059669" 
           hoverColor="#4ade80"
         />
         
         <FeatureBox 
           position={[2, 1.5, 0]} 
           title="Smart Recommendations" 
-          color="#16a34a" 
+          color="#059669" 
           hoverColor="#4ade80"
         />
         
         <FeatureBox 
           position={[-2, -1.5, 0]} 
           title="Plant Database" 
-          color="#16a34a" 
+          color="#059669" 
           hoverColor="#4ade80"
         />
         
         <FeatureBox 
           position={[2, -1.5, 0]} 
           title="Care Scheduling" 
-          color="#16a34a" 
+          color="#059669" 
           hoverColor="#4ade80"
         />
         
-        <OrbitControls enableZoom={false} enablePan={false} />
+        <OrbitControls 
+          enableZoom={false} 
+          enablePan={false} 
+          maxPolarAngle={Math.PI / 1.75}
+          minPolarAngle={Math.PI / 3}
+        />
       </Canvas>
     </div>
   );

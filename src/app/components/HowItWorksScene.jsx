@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, PerspectiveCamera, Sphere, Box, Cylinder } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Sphere, Box, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Plant model with sensor
@@ -114,18 +114,6 @@ function HubModel({ position, isActive }) {
           emissiveIntensity={isActive ? 1 : 0}
         />
       </Sphere>
-      
-      <Text
-        position={[0, 0.2, 0]}
-        rotation={[0, 0, 0]}
-        color="#ffffff"
-        fontSize={0.15}
-        font="/fonts/Inter-Bold.woff"
-        anchorX="center"
-        anchorY="middle"
-      >
-        FlorAI
-      </Text>
     </group>
   );
 }
@@ -245,198 +233,160 @@ function PhoneModel({ position, isActive }) {
   );
 }
 
-// Data flow lines
-function DataFlow({ start, end, isActive }) {
-  const flow = useRef();
-  const [points, setPoints] = useState([]);
-  
-  useFrame(({ clock }) => {
-    if (flow.current) {
-      // Create a curved path between points
-      const time = clock.getElapsedTime();
-      const startVec = new THREE.Vector3(...start);
-      const endVec = new THREE.Vector3(...end);
-      
-      // Middle control point with some height
-      const control = new THREE.Vector3(
-        (startVec.x + endVec.x) / 2,
-        Math.max(startVec.y, endVec.y) + 1,
-        (startVec.z + endVec.z) / 2
-      );
-      
-      // Create curve
-      const curve = new THREE.QuadraticBezierCurve3(startVec, control, endVec);
-      
-      // Generate points along curve
-      const newPoints = [];
-      for (let i = 0; i <= 20; i++) {
-        newPoints.push(curve.getPoint(i / 20));
-      }
-      
-      setPoints(newPoints);
-    }
-  });
-  
-  if (!isActive) return null;
-  
-  return (
-    <group ref={flow}>
-      <line>
-        <bufferGeometry attach="geometry" 
-          onUpdate={(self) => {
-            if (points.length > 0) {
-              self.setFromPoints(points);
-            }
-          }}
-        />
-        <lineBasicMaterial 
-          color="#4ade80" 
-          linewidth={2}
-          transparent
-          opacity={0.7}
-        />
-      </line>
-      
-      {/* Data packets moving along the path */}
-      {points.length > 0 && [0.2, 0.5, 0.8].map((offset, i) => {
-        const position = (() => {
-          const time = Date.now() * 0.001;
-          const t = ((time + offset) % 1);
-          const index = Math.floor(t * points.length);
-          return points[Math.min(index, points.length - 1)];
-        })();
-        
-        return (
-          <Sphere 
-            key={i}
-            args={[0.07, 8, 8]}
-            position={position}
-          >
-            <meshStandardMaterial 
-              color="#4ade80" 
-              emissive="#4ade80"
-              emissiveIntensity={1}
-            />
-          </Sphere>
-        );
-      })}
-    </group>
-  );
-}
-
-export default function HowItWorksScene() {
+// Main scene component
+function MainScene() {
   const [activeStep, setActiveStep] = useState(1);
   
-  // Advance step every 3 seconds
   useFrame(({ clock }) => {
     const time = Math.floor(clock.getElapsedTime() / 3) % 4;
     setActiveStep(time + 1);
   });
   
   return (
-    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900 to-green-900 rounded-lg overflow-hidden shadow-xl">
-      <Canvas className="w-full h-full">
-        <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={60} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} />
-        <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
-        
-        {/* Background elements */}
-        <fog attach="fog" args={['#0f172a', 10, 20]} />
-        
-        {/* Plants with sensors */}
-        <PlantWithSensor 
-          position={[-4, -1, 0]} 
-          rotation={[0, Math.PI * 0.1, 0]} 
-          isActive={activeStep >= 1}
-        />
-        
-        {/* Hub */}
-        <HubModel 
-          position={[-1.5, -1, 0]} 
-          isActive={activeStep >= 2}
-        />
-        
-        {/* Cloud */}
-        <CloudModel 
-          position={[0, 1, 0]} 
-          isActive={activeStep >= 3}
-        />
-        
-        {/* Phone */}
-        <PhoneModel 
-          position={[3, -0.5, 0]} 
-          isActive={activeStep >= 4}
-        />
-        
-        {/* Data flows */}
-        <DataFlow 
-          start={[-3.5, -0.8, 0]} 
-          end={[-1.5, -0.9, 0]} 
-          isActive={activeStep >= 2}
-        />
-        <DataFlow 
-          start={[-1.5, -0.8, 0]} 
-          end={[0, 0.8, 0]} 
-          isActive={activeStep >= 3}
-        />
-        <DataFlow 
-          start={[0, 0.8, 0]} 
-          end={[3, -0.5, 0]} 
-          isActive={activeStep >= 4}
-        />
-        
-        {/* Labels */}
-        <group position={[0, -2.5, 0]}>
-          <Text
-            position={[-4, 0, 0]}
-            color={activeStep >= 1 ? "#4ade80" : "#9ca3af"}
-            fontSize={0.3}
-            font="/fonts/Inter-Medium.woff"
-            anchorX="center"
-            anchorY="middle"
-          >
-            1. Sensors
-          </Text>
-          <Text
-            position={[-1.5, 0, 0]}
-            color={activeStep >= 2 ? "#4ade80" : "#9ca3af"}
-            fontSize={0.3}
-            font="/fonts/Inter-Medium.woff"
-            anchorX="center"
-            anchorY="middle"
-          >
-            2. Hub
-          </Text>
-          <Text
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={60} />
+      <ambientLight intensity={0.4} />
+      <pointLight position={[10, 10, 10]} intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
+      
+      {/* Background elements */}
+      <fog attach="fog" args={['#0f172a', 10, 20]} />
+      
+      {/* Plants with sensors */}
+      <PlantWithSensor 
+        position={[-4, -1, 0]} 
+        rotation={[0, Math.PI * 0.1, 0]} 
+        isActive={activeStep >= 1}
+      />
+      
+      {/* Hub */}
+      <HubModel 
+        position={[-1.5, -1, 0]} 
+        isActive={activeStep >= 2}
+      />
+      
+      {/* Cloud */}
+      <CloudModel 
+        position={[0, 1, 0]} 
+        isActive={activeStep >= 3}
+      />
+      
+      {/* Phone */}
+      <PhoneModel 
+        position={[3, -0.5, 0]} 
+        isActive={activeStep >= 4}
+      />
+      
+      {/* Simple step markers - no Text component, using meshes instead */}
+      <group position={[0, -2.5, 0]}>
+        <group position={[-4, 0, 0]}>
+          <Cylinder 
+            args={[0.4, 0.4, 0.1, 32]} 
             position={[0, 0, 0]}
-            color={activeStep >= 3 ? "#4ade80" : "#9ca3af"}
-            fontSize={0.3}
-            font="/fonts/Inter-Medium.woff"
-            anchorX="center"
-            anchorY="middle"
           >
-            3. AI Processing
-          </Text>
-          <Text
-            position={[3, 0, 0]}
-            color={activeStep >= 4 ? "#4ade80" : "#9ca3af"}
-            fontSize={0.3}
-            font="/fonts/Inter-Medium.woff"
-            anchorX="center"
-            anchorY="middle"
-          >
-            4. Mobile App
-          </Text>
+            <meshStandardMaterial 
+              color={activeStep >= 1 ? "#4ade80" : "#9ca3af"} 
+              emissive={activeStep >= 1 ? "#4ade80" : "#000000"}
+              emissiveIntensity={activeStep >= 1 ? 0.5 : 0}
+            />
+          </Cylinder>
         </group>
         
-        <OrbitControls 
-          enableZoom={false} 
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2 + 0.5}
-          minPolarAngle={Math.PI / 2 - 0.5}
-        />
-      </Canvas>
+        <group position={[-1.5, 0, 0]}>
+          <Cylinder 
+            args={[0.4, 0.4, 0.1, 32]} 
+            position={[0, 0, 0]}
+          >
+            <meshStandardMaterial 
+              color={activeStep >= 2 ? "#4ade80" : "#9ca3af"} 
+              emissive={activeStep >= 2 ? "#4ade80" : "#000000"}
+              emissiveIntensity={activeStep >= 2 ? 0.5 : 0}
+            />
+          </Cylinder>
+        </group>
+        
+        <group position={[0, 0, 0]}>
+          <Cylinder 
+            args={[0.4, 0.4, 0.1, 32]} 
+            position={[0, 0, 0]}
+          >
+            <meshStandardMaterial 
+              color={activeStep >= 3 ? "#4ade80" : "#9ca3af"} 
+              emissive={activeStep >= 3 ? "#4ade80" : "#000000"}
+              emissiveIntensity={activeStep >= 3 ? 0.5 : 0}
+            />
+          </Cylinder>
+        </group>
+        
+        <group position={[3, 0, 0]}>
+          <Cylinder 
+            args={[0.4, 0.4, 0.1, 32]} 
+            position={[0, 0, 0]}
+          >
+            <meshStandardMaterial 
+              color={activeStep >= 4 ? "#4ade80" : "#9ca3af"} 
+              emissive={activeStep >= 4 ? "#4ade80" : "#000000"}
+              emissiveIntensity={activeStep >= 4 ? 0.5 : 0}
+            />
+          </Cylinder>
+        </group>
+      </group>
+      
+      <OrbitControls 
+        enableZoom={false} 
+        enablePan={false}
+        maxPolarAngle={Math.PI / 2 + 0.5}
+        minPolarAngle={Math.PI / 2 - 0.5}
+      />
+    </>
+  );
+}
+
+export default function HowItWorksScene() {
+  const [canvasError, setCanvasError] = useState(false);
+  
+  // Error boundary for the canvas
+  const handleError = () => {
+    setCanvasError(true);
+  };
+  
+  return (
+    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900/70 to-green-900/70 rounded-xl overflow-hidden shadow-2xl border border-green-700/30">
+      {canvasError ? (
+        <div className="w-full h-full flex flex-col items-center justify-center text-white">
+          <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-green-300">FlorAI Smart Monitoring System</h3>
+          <div className="flex flex-col md:flex-row gap-8 w-full max-w-3xl px-4">
+            <div className="flex-1 p-6 bg-green-800/40 rounded-xl border-l-2 border-green-400 shadow-lg backdrop-blur-sm">
+              <h4 className="font-bold mb-2 text-green-300">1. Sensors</h4>
+              <p className="text-gray-200">Precision sensors capture soil moisture, light levels, and temperature data from your plants.</p>
+            </div>
+            <div className="flex-1 p-6 bg-green-800/40 rounded-xl border-l-2 border-green-400 shadow-lg backdrop-blur-sm">
+              <h4 className="font-bold mb-2 text-green-300">2. Smart Hub</h4>
+              <p className="text-gray-200">Central hub collects and processes data from all connected sensors.</p>
+            </div>
+            <div className="flex-1 p-6 bg-green-800/40 rounded-xl border-l-2 border-green-400 shadow-lg backdrop-blur-sm">
+              <h4 className="font-bold mb-2 text-green-300">3. App</h4>
+              <p className="text-gray-200">Mobile app provides personalized plant care recommendations.</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-white">Loading...</div>}>
+          <Canvas 
+            className="w-full h-full" 
+            onError={handleError}
+            gl={{ 
+              alpha: true,
+              antialias: true,
+              preserveDrawingBuffer: true,
+              failIfMajorPerformanceCaveat: false,
+            }}
+            shadows
+          >
+            <MainScene />
+          </Canvas>
+        </Suspense>
+      )}
     </div>
   );
 } 

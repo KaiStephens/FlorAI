@@ -34,8 +34,8 @@ function InstallationStep({ position, number, title, isActive, onClick }) {
       <Text
         position={[0, 0, 0.6]}
         color="#ffffff"
-        fontSize={0.3}
-        font="/fonts/Inter-Bold.woff"
+        fontSize={0.6}
+        font="sans-serif"
         anchorX="center"
         anchorY="middle"
       >
@@ -45,10 +45,10 @@ function InstallationStep({ position, number, title, isActive, onClick }) {
       <Text
         position={[0, -0.8, 0]}
         color="#ffffff"
-        fontSize={0.2}
+        fontSize={0.3}
+        font="sans-serif"
         maxWidth={2}
         textAlign="center"
-        font="/fonts/Inter-Medium.woff"
         anchorX="center"
         anchorY="middle"
       >
@@ -184,12 +184,14 @@ export default function InstallScene() {
   ];
   
   return (
-    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900 to-green-900 rounded-lg overflow-hidden shadow-xl">
+    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900/70 to-green-900/70 rounded-xl overflow-hidden shadow-2xl border border-green-700/30">
       <Canvas className="w-full h-full">
         <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={60} />
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <spotLight position={[0, 5, 10]} intensity={0.8} angle={0.3} penumbra={1} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[10, 10, 10]} intensity={1.2} />
+        <spotLight position={[0, 5, 10]} intensity={0.9} angle={0.3} penumbra={1} color="#4ade80" />
+        
+        <fog attach="fog" args={['#0a2724', 10, 20]} />
         
         <BackgroundGrid />
         <ConnectionLines steps={steps} activeStep={activeStep} />

@@ -23,12 +23,6 @@ export default function MissionPage() {
                 >
                   See How We Do It
                 </Link>
-                <Link 
-                  href="/who-we-are" 
-                  className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors text-center"
-                >
-                  Meet Our Team
-                </Link>
               </div>
             </div>
             <div className="md:w-1/2">

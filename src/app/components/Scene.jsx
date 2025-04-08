@@ -96,20 +96,23 @@ function ParticleField() {
 
 export default function Scene() {
   return (
-    <div className="w-full h-[700px] bg-gradient-to-b from-green-800 to-green-950 rounded-lg overflow-hidden shadow-xl">
+    <div className="w-full h-[700px] bg-gradient-to-b from-green-800/30 to-green-950/30 rounded-xl overflow-hidden shadow-2xl border border-green-700/30">
       <Canvas className="w-full h-full">
         <PerspectiveCamera makeDefault position={[0, 0, 10]} />
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <spotLight position={[-10, -10, -10]} intensity={0.5} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[10, 10, 10]} intensity={1.2} color="#ffffff" />
+        <spotLight position={[-10, -10, -10]} intensity={0.6} color="#4ade80" angle={0.3} penumbra={1} />
+        
+        <fog attach="fog" args={['#042f2e', 8, 30]} />
         
         <Stars 
           radius={100} 
           depth={50} 
           count={5000} 
           factor={4} 
-          saturation={0} 
+          saturation={0.5} 
           fade
+          speed={1}
         />
         
         <ParticleField />
@@ -127,7 +130,7 @@ export default function Scene() {
             position={[0, -3, 0]}
             color="#ffffff"
             fontSize={0.8}
-            font="/fonts/Inter-Medium.woff"
+            font="sans-serif"
             anchorX="center"
             anchorY="middle"
           >
@@ -135,7 +138,11 @@ export default function Scene() {
           </Text>
         </Float>
         
-        <OrbitControls enableZoom={true} />
+        <OrbitControls 
+          enableZoom={true}
+          maxPolarAngle={Math.PI / 1.75}
+          minPolarAngle={Math.PI / 3}
+        />
       </Canvas>
     </div>
   );

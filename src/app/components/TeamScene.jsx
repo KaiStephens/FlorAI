@@ -42,7 +42,7 @@ function TeamMember({ position, color, name, role, isActive, onClick }) {
         position={[0, -1.1, 0]}
         color="#ffffff"
         fontSize={0.2}
-        font="/fonts/Inter-Bold.woff"
+        font="sans-serif"
         anchorX="center"
         anchorY="middle"
       >
@@ -53,7 +53,7 @@ function TeamMember({ position, color, name, role, isActive, onClick }) {
         position={[0, -1.4, 0]}
         color="#d1d5db"
         fontSize={0.15}
-        font="/fonts/Inter-Medium.woff"
+        font="sans-serif"
         anchorX="center"
         anchorY="middle"
       >
@@ -89,7 +89,7 @@ function CompanyLogo({ position }) {
         position={[0, 0, 0.15]}
         color="#ffffff"
         fontSize={0.4}
-        font="/fonts/Inter-Bold.woff"
+        font="sans-serif"
         anchorX="center"
         anchorY="middle"
       >
@@ -209,12 +209,15 @@ export default function TeamScene() {
   const memberPositions = teamMembers.map(member => member.position);
   
   return (
-    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900 to-green-900 rounded-lg overflow-hidden shadow-xl">
+    <div className="w-full h-[600px] bg-gradient-to-b from-gray-900/70 to-green-900/70 rounded-xl overflow-hidden shadow-2xl border border-green-700/30">
       <Canvas className="w-full h-full">
         <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={60} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} />
-        <directionalLight position={[0, 0, 5]} intensity={0.5} />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <directionalLight position={[0, 0, 5]} intensity={0.6} />
+        <spotLight position={[0, 5, 5]} intensity={0.5} angle={0.3} penumbra={1} color="#4ade80" />
+        
+        <fog attach="fog" args={['#0a2724', 8, 20]} />
         
         <BackgroundParticles />
         <ConnectionLines memberPositions={memberPositions} activeIndex={activeIndex} />

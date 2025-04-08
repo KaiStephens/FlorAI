@@ -10,20 +10,18 @@
   "app/how-it-works/page.tsx -> ../components/HowItWorksScene": {
     "id": 1148,
     "files": [
-      "static/chunks/b536a0f1-9660375e6b65b21a.js",
-      "static/chunks/0f8af13e-b4e78ab1b6f02b37.js",
-      "static/chunks/663-501434ed6fdbe315.js",
-      "static/chunks/850-aeb52a1afc309ec6.js",
-      "static/chunks/456.f9f92b986475698e.js"
+      "static/chunks/b536a0f1-12f03a604c420caf.js",
+      "static/chunks/663-78b4e4f81cf3af08.js",
+      "static/chunks/456.36ccb3642d876fd5.js"
     ]
   },
   "app/page.tsx -> ./components/Scene": {
     "id": 7888,
     "files": [
-      "static/chunks/0f8af13e-b4e78ab1b6f02b37.js",
-      "static/chunks/663-501434ed6fdbe315.js",
-      "static/chunks/850-aeb52a1afc309ec6.js",
-      "static/chunks/244.7d508e1d7236c61e.js"
+      "static/chunks/0f8af13e-357a85a2114d00cd.js",
+      "static/chunks/663-78b4e4f81cf3af08.js",
+      "static/chunks/850-d3ae7e93e58ad71b.js",
+      "static/chunks/244.0e5121ab7915b76f.js"
     ]
   }
 }
