@@ -1,0 +1,218 @@
+/*
+  ESP32 Plant Monitor Webserver with Sensors
+ 
+  This sketch:
+  1. Connects to WiFi with STATIC IP address
+  2. Sets up a webserver with REST API endpoints
+  3. Reads values from plant sensors (DHT11, water level, light)
+  4. Provides sensor data via API endpoints
+*/
+
+#include <WiFi.h>
+#include <WebServer.h>
+#include "DHT.h"
+
+// WiFi credentials - replace with your own
+const char* ssid = "Emmaus";
+const char* password = "12345678";
+
+// Static IP configuration - adjusted for iOS hotspot connection
+// iOS hotspots typically use the 172.20.10.x range
+IPAddress staticIP(172, 20, 10, 4);   // Static IP address for ESP32
+IPAddress gateway(172, 20, 10, 1);      // Gateway IP (iOS device's IP, usually .1)
+IPAddress subnet(255, 255, 255, 0);     // Subnet mask
+IPAddress dns(8, 8, 8, 8);              // DNS server (you can use Google's DNS)
+
+// Sensor pins
+#define DHTPIN 32     // Pin connected to the DHT sensor
+#define DHTTYPE DHT11   // DHT 11
+int const waterLevelPin = 33;  // Analog input pin for water level sensor
+int const lightSensPin = 35;   // Analog input pin for light sensor
+
+// Create WebServer object on port 80
+WebServer server(80);
+
+// Variables to store sensor values
+struct PlantData {
+  float humidity;
+  float temperature;
+  int waterLevel;
+  int lightLevel;
+  long timestamp;
+};
+
+// Current reading
+PlantData currentReading;
+
+// DHT sensor
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(19200);
+  Serial.println("ESP32 Plant Monitor Webserver");
+ 
+  // Initialize sensor pins
+  pinMode(waterLevelPin, INPUT);
+  pinMode(lightSensPin, INPUT);
+ 
+  // Initialize DHT sensor
+  dht.begin();
+ 
+  // Connect to WiFi
+  setupWifi();
+ 
+  // Set up server routes
+  setupServer();
+ 
+  // Take initial sensor reading
+  readSensorData();
+}
+
+void loop() {
+  // Handle client requests
+  server.handleClient();
+ 
+  // Read sensor data every 2 seconds
+  static unsigned long lastReadTime = 0;
+  if (millis() - lastReadTime > 2000) {
+    lastReadTime = millis();
+    readSensorData();
+  }
+ 
+  // Small delay to allow WiFi processing
+  delay(10);
+}
+
+void setupWifi() {
+  Serial.println("Connecting to WiFi with static IP...");
+ 
+  // Configure static IP
+  if (!WiFi.config(staticIP, gateway, subnet, dns)) {
+    Serial.println("Failed to configure static IP!");
+  }
+ 
+  // Start WiFi connection
+  WiFi.begin(ssid, password);
+ 
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+ 
+  Serial.println("Connected to WiFi");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void setupServer() {
+  // We'll manually add CORS headers to each response instead of using DefaultHeaders
+ 
+  // Route for root path
+  server.on("/", HTTP_GET, [](){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.send(200, "text/html",
+      "<html><body>"
+      "<h1>ESP32 Plant Monitor</h1>"
+      "<p>Welcome to the ESP32 Plant Monitor server!</p>"
+      "<p>API endpoints available:</p>"
+      "<ul>"
+      "<li><a href='/api/data'>/api/data</a> - Current sensor readings</li>"
+      "<li><a href='/api/status'>/api/status</a> - Server status</li>"
+      "</ul>"
+      "</body></html>");
+  });
+ 
+  // Data route - returns current sensor readings
+  server.on("/api/data", HTTP_GET, [](){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+   
+    String json = "{";
+    json += "\"humidity\":" + String(currentReading.humidity) + ",";
+    json += "\"temperature\":" + String(currentReading.temperature) + ",";
+    json += "\"waterLevel\":" + String(currentReading.waterLevel) + ",";
+    json += "\"lightLevel\":" + String(currentReading.lightLevel) + ",";
+    json += "\"timestamp\":" + String(currentReading.timestamp);
+    json += "}";
+   
+    server.send(200, "application/json", json);
+  });
+ 
+  // Status route - returns server uptime and free memory
+  server.on("/api/status", HTTP_GET, [](){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+   
+    String json = "{";
+    json += "\"uptime\":" + String(millis() / 1000) + ",";
+    json += "\"heap\":" + String(ESP.getFreeHeap()) + ",";
+    json += "\"status\":\"running\"";
+    json += "}";
+    server.send(200, "application/json", json);
+  });
+ 
+  // Handle options for CORS preflight
+  server.on("/api/data", HTTP_OPTIONS, [](){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+    server.send(204);
+  });
+ 
+  server.on("/api/status", HTTP_OPTIONS, [](){
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+    server.send(204);
+  });
+ 
+  // Handle not found
+  server.onNotFound([](){
+    server.send(404, "text/plain", "Not Found");
+  });
+ 
+  // Start server
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void readSensorData() {
+  // Read humidity and temperature from DHT sensor
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+ 
+  // Read water level sensor
+  int waterLevelValue = (analogRead(waterLevelPin) * 100) / 4095;
+ 
+  // Read light sensor
+  int lightAmount = ((4095 - analogRead(lightSensPin)) * 100) / 4095;
+ 
+  // Check if any reads failed
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read from DHT sensor!");
+    // Don't update values if read failed
+    return;
+  }
+ 
+  // Store current readings
+  currentReading.humidity = h;
+  currentReading.temperature = t;
+  currentReading.waterLevel = waterLevelValue;
+  currentReading.lightLevel = lightAmount;
+  currentReading.timestamp = millis();
+ 
+  // Print values for debugging
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print("% | Temperature: ");
+  Serial.print(t);
+  Serial.println("°C");
+  Serial.print("Water level: ");
+  Serial.print(waterLevelValue);
+  Serial.print("% | Light level: ");
+  Serial.print(lightAmount);
+  Serial.println("%");
+} 
