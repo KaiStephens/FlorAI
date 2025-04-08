@@ -122,11 +122,6 @@ export default function PlanetScene() {
         let targetZ = 30;
         let targetRotationY = 0.5; // Add target rotation for smooth transitions
         const interpolationSpeed = 0.05; // Controls smoothness of transitions
-        // Track oscillation direction (true = moving toward viewer, false = moving away)
-        let movingTowardViewer = true;
-        // Auto-oscillation values
-        let lastRotationY = 0.5;
-        const oscillationSpeed = 0.1; // Controls how fast z oscillates
         
         function animate() {
             requestAnimationFrame(animate);
@@ -140,37 +135,15 @@ export default function PlanetScene() {
                 planet.position.x += (targetX - currentX) * interpolationSpeed;
             }
             
-            // Check if we need to reverse direction based on z limits
-            if (targetZ <= 0.1 && movingTowardViewer) {
-                movingTowardViewer = false; // Start moving away
-                targetZ = 0.1; // Prevent going below 0
-            } else if (targetZ >= 29.9 && !movingTowardViewer) {
-                movingTowardViewer = true; // Start moving toward viewer
-                targetZ = 29.9; // Prevent exceeding 30
-            }
-            
-            // Auto-oscillate based on rotation
-            // If rotation has changed significantly, apply oscillation effect
-            const autoRotationDelta = Math.abs(planet.rotation.y - lastRotationY);
-            if (autoRotationDelta > 0.01) {
-                // Move in the current oscillation direction
-                if (movingTowardViewer) {
-                    targetZ = Math.max(0.1, targetZ - (autoRotationDelta * oscillationSpeed * 30));
-                } else {
-                    targetZ = Math.min(29.9, targetZ + (autoRotationDelta * oscillationSpeed * 30));
-                }
-                lastRotationY = planet.rotation.y;
-            }
-            
             // Interpolate Z position (distance)
             if (Math.abs(targetZ - currentZ) > 0.01) {
                 planet.position.z += (targetZ - currentZ) * interpolationSpeed;
             }
             
             // Interpolate rotation for smooth transitions
-            const rotationInterpolationDelta = targetRotationY - planet.rotation.y;
-            if (Math.abs(rotationInterpolationDelta) > 0.01) {
-                planet.rotation.y += rotationInterpolationDelta * interpolationSpeed;
+            const rotationDelta = targetRotationY - planet.rotation.y;
+            if (Math.abs(rotationDelta) > 0.01) {
+                planet.rotation.y += rotationDelta * interpolationSpeed;
                 atmosphere.rotation.y = planet.rotation.y;
             }
             
@@ -194,24 +167,20 @@ export default function PlanetScene() {
             // Apply rotation directly to the planet (via target)
             targetRotationY += delta * 0.002;
             
-            // Check scroll direction and apply z movement based on current oscillation direction
-            const zDelta = Math.abs(delta) * 0.03; // Increased from 0.01 to 0.03
-            
-            if (delta > 0) { // Scrolling down
-                if (movingTowardViewer) {
-                    // Moving toward viewer (decreasing z)
-                    targetZ = Math.max(0.1, targetZ - zDelta);
-                } else {
-                    // Moving away from viewer (increasing z)
-                    targetZ = Math.min(29.9, targetZ + zDelta);
+            // Check scroll direction
+            if (delta > 0) {
+                // Scrolling down - move planet closer (decrease z) - faster
+                if (targetZ > 0) {
+                    // Decrease z proportional to rotation amount but always moving forward
+                    const zDelta = Math.abs(delta) * 0.03; // Increased from 0.01 to 0.03
+                    targetZ = Math.max(0, targetZ - zDelta);
                 }
-            } else if (delta < 0) { // Scrolling up
-                if (movingTowardViewer) {
-                    // Moving toward viewer (decreasing z) - reverse this when scrolling up
-                    targetZ = Math.min(29.9, targetZ + zDelta);
-                } else {
-                    // Moving away from viewer (increasing z) - reverse this when scrolling up
-                    targetZ = Math.max(0.1, targetZ - zDelta);
+            } else if (delta < 0) {
+                // Scrolling up - move planet farther (increase z)
+                if (targetZ < 30) {
+                    // Increase z proportional to rotation amount
+                    const zDelta = Math.abs(delta) * 0.03; // Increased from 0.01 to 0.03
+                    targetZ = Math.min(30, targetZ + zDelta);
                 }
             }
         };
@@ -234,24 +203,20 @@ export default function PlanetScene() {
             // Apply rotation just like with wheel events
             targetRotationY += touchDelta * 0.002;
             
-            // Apply z movement based on current oscillation direction (similar to wheel handler)
-            const zDelta = Math.abs(touchDelta) * 0.03;
-            
-            if (touchDelta > 0) { // Scrolling down
-                if (movingTowardViewer) {
-                    // Moving toward viewer (decreasing z)
-                    targetZ = Math.max(0.1, targetZ - zDelta);
-                } else {
-                    // Moving away from viewer (increasing z)
-                    targetZ = Math.min(29.9, targetZ + zDelta);
+            // Check scroll direction
+            if (touchDelta > 0) {
+                // Scrolling down - move planet closer (decrease z)
+                if (targetZ > 0) {
+                    // Decrease z proportional to rotation amount
+                    const zDelta = Math.abs(touchDelta) * 0.03; // Increased from 0.01 to 0.03
+                    targetZ = Math.max(0, targetZ - zDelta);
                 }
-            } else if (touchDelta < 0) { // Scrolling up
-                if (movingTowardViewer) {
-                    // Moving toward viewer (decreasing z) - reverse this when scrolling up
-                    targetZ = Math.min(29.9, targetZ + zDelta);
-                } else {
-                    // Moving away from viewer (increasing z) - reverse this when scrolling up
-                    targetZ = Math.max(0.1, targetZ - zDelta);
+            } else if (touchDelta < 0) {
+                // Scrolling up - move planet farther (increase z)
+                if (targetZ < 30) {
+                    // Increase z proportional to rotation amount
+                    const zDelta = Math.abs(touchDelta) * 0.03; // Increased from 0.01 to 0.03
+                    targetZ = Math.min(30, targetZ + zDelta);
                 }
             }
             
