@@ -4,7 +4,7 @@ import { OrbitControls, Environment, useGLTF } from '@react-three/drei';
 
 function Plant(props) {
   const group = useRef();
-  // Attempt to load a plant model - fallback to simple geometry if not available
+  // Attempt to load a plant model - fallback to enhanced geometry if not available
   const { nodes, materials } = useGLTF('/models/plant.glb', true) || {};
   
   useFrame((state) => {
@@ -21,29 +21,74 @@ function Plant(props) {
       </group>
     );
   } else {
-    // Fallback geometry in case the model isn't available
+    // Enhanced fallback geometry in case the model isn't available
     return (
       <group ref={group} {...props}>
-        <mesh castShadow receiveShadow>
-          <cylinderGeometry args={[0.2, 0.4, 0.5, 32]} />
-          <meshStandardMaterial color="#8B4513" />
+        {/* Pot */}
+        <mesh castShadow receiveShadow position={[0, -0.2, 0]}>
+          <cylinderGeometry args={[0.3, 0.4, 0.5, 32]} />
+          <meshStandardMaterial color="#A0522D" roughness={0.8} />
         </mesh>
-        <group position={[0, 0.4, 0]}>
-          {[...Array(5)].map((_, i) => (
-            <mesh 
+        
+        {/* Soil */}
+        <mesh castShadow receiveShadow position={[0, 0.05, 0]}>
+          <cylinderGeometry args={[0.28, 0.28, 0.1, 32]} />
+          <meshStandardMaterial color="#3E2723" roughness={1} />
+        </mesh>
+        
+        {/* Plant Stem */}
+        <mesh castShadow position={[0, 0.3, 0]}>
+          <cylinderGeometry args={[0.03, 0.05, 0.5, 8]} />
+          <meshStandardMaterial color="#33691E" roughness={0.7} />
+        </mesh>
+        
+        {/* Main Leaves */}
+        {[...Array(6)].map((_, i) => {
+          const angle = (i / 6) * Math.PI * 2;
+          const height = 0.2 + Math.random() * 0.4;
+          return (
+            <group 
               key={i} 
+              position={[0, 0.3 + height/2, 0]}
+              rotation={[Math.random() * 0.5, angle, Math.random() * 0.3]}
+            >
+              <mesh castShadow>
+                <boxGeometry args={[0.1, height, 0.4]} />
+                <meshStandardMaterial 
+                  color={i % 2 === 0 ? "#4CAF50" : "#388E3C"} 
+                  roughness={0.8} 
+                />
+              </mesh>
+            </group>
+          );
+        })}
+        
+        {/* Small Leaves */}
+        {[...Array(8)].map((_, i) => {
+          const angle = (i / 8) * Math.PI * 2 + 0.2;
+          const posX = Math.sin(angle) * 0.2;
+          const posZ = Math.cos(angle) * 0.2;
+          const height = 0.1 + Math.random() * 0.2;
+          
+          return (
+            <mesh 
+              key={`leaf-small-${i}`} 
               castShadow 
-              position={[
-                Math.sin(i / 5 * Math.PI * 2) * 0.4,
-                0.5,
-                Math.cos(i / 5 * Math.PI * 2) * 0.4
+              position={[posX, 0.4 + Math.random() * 0.3, posZ]}
+              rotation={[
+                Math.random() * 0.5 - 0.25, 
+                Math.random() * Math.PI * 2, 
+                Math.random() * 0.5 - 0.25
               ]}
             >
-              <sphereGeometry args={[0.4, 16, 16]} />
-              <meshStandardMaterial color="#228B22" />
+              <sphereGeometry args={[0.1, 8, 8]} />
+              <meshStandardMaterial 
+                color={i % 3 === 0 ? "#81C784" : "#66BB6A"} 
+                roughness={0.7} 
+              />
             </mesh>
-          ))}
-        </group>
+          );
+        })}
       </group>
     );
   }
