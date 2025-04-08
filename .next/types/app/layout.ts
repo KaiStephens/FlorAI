@@ -1,4 +1,4 @@
-// File: /Users/kaistephens/Downloads/code/florAI/webApp/FlorAI/src/app/layout.js
+// File: C:\Users\theoa\FlorAIRepo\FlorAI\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

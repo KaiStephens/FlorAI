@@ -1,4 +1,4 @@
-// File: /Users/kaistephens/Downloads/code/florAI/webApp/FlorAI/src/app/features/page.tsx
+// File: C:\Users\theoa\FlorAIRepo\FlorAI\src\app\features\page.tsx
 import * as entry from '../../../../src/app/features/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

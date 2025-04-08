@@ -12,10 +12,9 @@ export default function FeaturesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Product Features</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">FlorAI Features</h1>
               <p className="text-xl mb-8 leading-relaxed">
-                Discover how FlorAI's innovative features combine AI technology 
-                with precise sensors to revolutionize the way you care for your plants.
+                Discover how our complete plant monitoring system will transform your gardening experience.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
@@ -39,242 +38,218 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Key Features Section */}
+      {/* Complete Plant Monitoring System Section */}
       <section className="w-full py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Key Features</h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Complete Plant Monitoring System</h2>
             <p className="text-lg text-gray-600">
-              Our comprehensive suite of features works together to provide an unparalleled plant care experience.
+              Our comprehensive monitoring system provides all the data you need to keep your plants healthy.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
-            {/* Feature 1 */}
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="flex-shrink-0">
-                <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Temperature */}
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-t-4 border-green-500">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
               </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-3 text-gray-800">Real-time Monitoring</h3>
-                <p className="text-gray-700 mb-4">
-                  Our advanced sensors continuously monitor key plant health indicators including:
-                </p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Soil moisture levels with precision accuracy</li>
-                  <li>Light exposure and quality measurements</li>
-                  <li>Temperature and humidity conditions</li>
-                  <li>Soil pH and nutrient levels</li>
-                </ul>
-              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Temperature Tracking</h3>
+              <p className="text-gray-700">
+                Our sensors constantly monitor temperature around your plants, ensuring they're in their optimal growth range. Get alerts when temperatures fall outside the ideal range for your specific plant species.
+              </p>
             </div>
             
-            {/* Feature 2 */}
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="flex-shrink-0">
-                <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
+            {/* Humidity */}
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-t-4 border-green-500">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
               </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-3 text-gray-800">AI-Powered Recommendations</h3>
-                <p className="text-gray-700 mb-4">
-                  Our machine learning algorithms analyze plant data to deliver personalized care guidance:
-                </p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Customized watering schedules based on plant species and conditions</li>
-                  <li>Light optimization suggestions for optimal growth</li>
-                  <li>Early detection of potential health issues</li>
-                  <li>Seasonal care adjustments based on environmental changes</li>
-                </ul>
-              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Humidity Monitoring</h3>
+              <p className="text-gray-700">
+                Know exactly when to water your plants with precise soil moisture measurement. Prevent both over-watering and under-watering by maintaining the perfect moisture level for each plant.
+              </p>
             </div>
             
-            {/* Feature 3 */}
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="flex-shrink-0">
-                <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
+            {/* Light */}
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-t-4 border-green-500">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
               </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-3 text-gray-800">Smart Care Scheduling</h3>
-                <p className="text-gray-700 mb-4">
-                  Never forget to care for your plants with our intuitive scheduling system:
-                </p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Automated reminders for watering, fertilizing, and repotting</li>
-                  <li>Intelligent scheduling that adapts to changing plant needs</li>
-                  <li>Progress tracking of plant growth and health over time</li>
-                  <li>Synchronization with your calendar and smart home devices</li>
-                </ul>
-              </div>
-            </div>
-            
-            {/* Feature 4 */}
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="flex-shrink-0">
-                <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-3 text-gray-800">Comprehensive Plant Database</h3>
-                <p className="text-gray-700 mb-4">
-                  Access detailed information on thousands of plant species:
-                </p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Detailed care instructions specific to each plant variety</li>
-                  <li>Visual identification to help diagnose common issues</li>
-                  <li>Growth expectations and seasonal variations</li>
-                  <li>Compatibility suggestions for companion planting</li>
-                </ul>
-              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Light Level Measurement</h3>
+              <p className="text-gray-700">
+                Find the perfect spot for each plant with accurate light level readings. Our sensors measure light intensity and duration to ensure your plants get exactly the amount of light they need to thrive.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Advanced Features */}
+      {/* Smart Plant Care Companion App */}
       <section className="w-full py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-16 text-gray-800">Advanced Features</h2>
+          <h2 className="text-3xl font-bold text-center mb-16 text-gray-800">Smart Plant Care Companion App</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Mobile Application</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Personalized Recommendations</h3>
               <p className="text-gray-700">
-                Access your plant data anywhere with our intuitive mobile app. 
-                Receive notifications, view detailed analytics, and control smart 
-                integrations remotely.
+                Receive tailored care instructions based on real-time data from your plants. Our app analyzes environmental conditions and provides specific actions to improve plant health.
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Smart Home Integration</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Plant Health Scoring</h3>
               <p className="text-gray-700">
-                Connect with popular smart home systems to automate plant care. 
-                Control grow lights, humidifiers, and irrigation systems based on 
-                real-time data.
+                Monitor your plant's well-being at a glance with our easy-to-understand health scoring system. Quickly identify which plants need attention and track improvements over time.
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">Data Analytics</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Historical Data Tracking</h3>
               <p className="text-gray-700">
-                Gain valuable insights from comprehensive data analytics. 
-                Track trends over time, compare plant performance, and 
-                continuously improve your plant care practices.
+                View trends and patterns in your plant's growth and environmental conditions over time. Use historical data to understand what conditions help your plants thrive.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Hardware Specs */}
+      {/* Innovative Technology */}
       <section className="w-full py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 md:pr-12 mb-10 md:mb-0">
-              <h2 className="text-3xl font-bold mb-6 text-gray-800">Hardware Specifications</h2>
-              <p className="text-lg text-gray-700 mb-6">
-                Our cutting-edge hardware combines reliability with precision to deliver 
-                accurate plant monitoring in a sleek, energy-efficient package.
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 h-6 w-6 text-green-500 mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-700"><span className="font-semibold">Battery Life:</span> Up to 6 months on a single charge</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 h-6 w-6 text-green-500 mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-700"><span className="font-semibold">Connectivity:</span> WiFi and Bluetooth 5.0 for seamless connection</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 h-6 w-6 text-green-500 mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-700"><span className="font-semibold">Sensors:</span> High-precision moisture, light, temperature, and pH sensors</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0 h-6 w-6 text-green-500 mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-700"><span className="font-semibold">Water Resistance:</span> IP67 rated for durability in humid environments</p>
-                </li>
-              </ul>
-            </div>
-            <div className="md:w-1/2 bg-green-50 p-8 rounded-2xl">
-              <div className="aspect-w-4 aspect-h-3 relative overflow-hidden rounded-xl bg-green-100">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-white/90 px-6 py-4 rounded-lg text-center shadow-lg">
-                    <h3 className="text-lg font-semibold text-green-700 mb-1">FlorAI Sensor</h3>
-                    <p className="text-gray-600">Product visualization coming soon</p>
-                  </div>
-                </div>
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Innovative Technology</h2>
+            <p className="text-lg text-gray-600">
+              FlorAI leverages cutting-edge technology to provide unprecedented insights into your plants' needs.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-200">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">AI Plant Recognition</h3>
+              <p className="text-gray-700">
+                Use our app's camera feature to instantly identify plants. Our AI vision technology can recognize thousands of plant species and provide species-specific care instructions.
+              </p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-200">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Species-Specific Care</h3>
+              <p className="text-gray-700">
+                Each plant has unique needs, and FlorAI recognizes this. Get customized care instructions based on the specific requirements of your plant's species for optimal growth.
+              </p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-200">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Environmental Impact Tracker</h3>
+              <p className="text-gray-700">
+                Track the positive environmental impact of your plants. Our app calculates approximate CO2 absorption based on your plant collection, showing how your green friends help the planet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Features */}
+      <section className="w-full py-20 bg-green-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-16 text-gray-800">Community Features</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Eco-Impact Leaderboard</h3>
+              <p className="text-gray-700">
+                Compete with friends and other FlorAI users to see who can make the biggest environmental impact with their plants. Gamify your gardening experience and stay motivated.
+              </p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Plant Health Comparison</h3>
+              <p className="text-gray-700">
+                See how your plants compare to those of other FlorAI users. Learn from the community's successes and get tips from those who have mastered growing your specific plant varieties.
+              </p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Progress Tracking</h3>
+              <p className="text-gray-700">
+                Monitor your progress as you grow your indoor garden. Set goals, track achievements, and celebrate milestones as you build your plant collection and improve your gardening skills.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="w-full py-16 bg-green-700 text-white">
+      <section className="w-full py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Plant Care?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Join thousands of plant enthusiasts who have revolutionized their gardening experience with FlorAI's innovative features.
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">Ready to Transform Your Plant Care?</h2>
+          <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+            Start giving your plants the care they deserve with FlorAI's innovative features.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/install" 
-              className="bg-white text-green-700 px-8 py-4 rounded-lg font-semibold hover:bg-green-100 transition-colors"
+              href="/how-it-works" 
+              className="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors"
             >
-              Get Started
+              See How It Works
             </Link>
             <Link 
-              href="/how-it-works" 
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+              href="/install" 
+              className="bg-white text-green-700 border border-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-50 transition-colors"
             >
-              Learn More
+              Get Started
             </Link>
           </div>
         </div>
