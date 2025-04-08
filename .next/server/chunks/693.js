@@ -1,0 +1,1 @@
+"use strict";exports.id=693,exports.ids=[693],exports.modules={6693:(e,s,r)=>{r.r(s),r.d(s,{default:()=>o});let o=(0,r(8570).createProxy)(String.raw`/Users/kaistephens/Downloads/code/florAI/webApp/FlorAI/src/app/components/WhoWeAreScene.jsx#default`)}};

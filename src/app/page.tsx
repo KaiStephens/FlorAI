@@ -110,7 +110,7 @@ export default function Home() {
       </main>
 
       {/* Add CSS for fade-in sections */}
-      <style jsx>{`
+      <style jsx={true}>{`
         .fade-in-section {
           opacity: 0;
           transform: translateY(20px);

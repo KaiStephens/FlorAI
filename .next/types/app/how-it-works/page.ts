@@ -1,4 +1,4 @@
-// File: C:\Users\theoa\FlorAIRepo\FlorAI\src\app\how-it-works\page.tsx
+// File: /Users/kaistephens/Downloads/code/florAI/webApp/FlorAI/src/app/how-it-works/page.tsx
 import * as entry from '../../../../src/app/how-it-works/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

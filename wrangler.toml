@@ -1,0 +1,8 @@
+name = "florai"
+compatibility_date = "2025-04-08"
+
+[site]
+bucket = "./out"
+
+# Specify the output directory for Pages
+pages_build_output_dir = "out" 
